@@ -56,7 +56,8 @@ func pdfText(_ file: URL) -> String? {
 func checkLinks(_ urls: Set<URL>, timeout: TimeInterval = 20) -> [URL: LinkCheck] {
     let config = URLSessionConfiguration.ephemeral
     config.timeoutIntervalForRequest = timeout
-    config.timeoutIntervalForResource = timeout * 2
+    // No timeoutIntervalForResource: on Linux, FoundationNetworking crashes (libcurl error 43
+    // in EasyHandle) once it runs out. Each check is bounded by the wait below instead.
     let session = URLSession(configuration: config)
     // Linux marks concurrentPerform's closure @Sendable, so the function it calls must be too.
     @Sendable func check(_ url: URL) -> LinkCheck? {
@@ -64,12 +65,16 @@ func checkLinks(_ urls: Set<URL>, timeout: TimeInterval = 20) -> [URL: LinkCheck
         request.setValue(browserUserAgent, forHTTPHeaderField: "User-Agent")
         let done = DispatchSemaphore(value: 0)
         nonisolated(unsafe) var result: LinkCheck?
-        session.dataTask(with: request) { _, response, _ in
+        let task = session.dataTask(with: request) { _, response, _ in
             let http = response as? HTTPURLResponse
             result = LinkCheck.classify(original: url, final: http?.url, statusCode: http?.statusCode)
             done.signal()
-        }.resume()
-        done.wait()
+        }
+        task.resume()
+        if done.wait(timeout: .now() + timeout * 2) == .timedOut {
+            task.cancel()
+            return nil
+        }
         return result
     }
     let queue = DispatchQueue(label: "links")
