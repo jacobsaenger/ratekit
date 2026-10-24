@@ -58,7 +58,8 @@ func checkLinks(_ urls: Set<URL>, timeout: TimeInterval = 20) -> [URL: LinkCheck
     config.timeoutIntervalForRequest = timeout
     config.timeoutIntervalForResource = timeout * 2
     let session = URLSession(configuration: config)
-    func check(_ url: URL) -> LinkCheck? {
+    // Linux marks concurrentPerform's closure @Sendable, so the function it calls must be too.
+    @Sendable func check(_ url: URL) -> LinkCheck? {
         var request = URLRequest(url: url, timeoutInterval: timeout)
         request.setValue(browserUserAgent, forHTTPHeaderField: "User-Agent")
         let done = DispatchSemaphore(value: 0)
