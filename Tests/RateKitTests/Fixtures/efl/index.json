@@ -1,0 +1,490 @@
+[
+ {
+  "idKey": "36758",
+  "provider": "PRONTO POWER",
+  "product": "Pronto Flex 30",
+  "url": "https://pronto-gridlink.smartgridcis.net/Documents/Download.aspx?ProductDocumentID=846",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35179",
+  "provider": "SFE ENERGY TEXAS INC",
+  "product": "SFE PowerPerks 5",
+  "url": "https://empowerdocs.blob.core.windows.net/efldocuments/SFE_PowerPerks_5_2516115404254282408_EFL_SFE%20RESI%20-%20AEPN%20-%20FIXED%20POWERPERKS%205English.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "33717",
+  "provider": "TXU ENERGY",
+  "product": "Free Nights & Cool Summer 12",
+  "url": "https://residential.txu.com/Handlers/PDFGenerator.ashx?comProdId=LPXFNCOOLS12AC&lang=en&formType=EnergyFactsLabel&custClass=3&tdsp=LUBBOCK",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "36620",
+  "provider": "Express Energy",
+  "product": "Flash Value 12",
+  "url": "https://shopping.myexpressenergy.com/PDFGenerator?formType=EnergyFactsLabel&comProdId=TCEXFLASHCC12IL&tdsp=AEPTCC&lang=en&custClass=Residential",
+  "sample": "provider",
+  "format": "html"
+ },
+ {
+  "idKey": "36631",
+  "provider": "Veteran Energy",
+  "product": "Basic 12",
+  "url": "https://shopping.veteranenergyusa.com/PDFGenerator?formType=EnergyFactsLabel&comProdId=TCVTBASICAC12AB&tdsp=AEPTCC&lang=en&custClass=Residential",
+  "sample": "provider",
+  "format": "html"
+ },
+ {
+  "idKey": "16209",
+  "provider": "Discount Power",
+  "product": "Saver 18",
+  "url": "https://www.discountpowertx.com/defl/M1F00193222990C.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35685",
+  "provider": "Octopus Energy",
+  "product": "Octo Green 8",
+  "url": "https://octopusenergy.com/efl?productId=OCTO-SIMPLE-8&serviceProvider=LPL&loadZone=LZ_WEST",
+  "sample": "provider",
+  "format": "html"
+ },
+ {
+  "idKey": "26332",
+  "provider": "SPARK ENERGY LLC",
+  "product": "Choose 15",
+  "url": "https://www.sparkenergy.com/products-and-services/?getproductpdf=1&PromotionCode=PTC&ProductID=148472&type=EFL&title=Electricity+Facts+Label&language=english",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "37797",
+  "provider": "SMARTENERGY HOLDINGS LLC",
+  "product": "SmartGreen 3",
+  "url": "https://texas.smartenergy.com/docs/efls/output/20261020_F_CPT_SG3_M2001.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "34402",
+  "provider": "Budget Power",
+  "product": "No Gimmicks 24",
+  "url": "https://signup.budgetpowertx.com/Home/EFL?productId=35295&Promo=",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35773",
+  "provider": "Companion Energy",
+  "product": "Companion + Perks 12",
+  "url": "https://eflviewer.companionenergy.com/eflviewer.aspx?lang=EN&prodcode=CEPERK12&tdspcode=AEP_CENT&ppid=196506&logid=85905&filename=AEP_CENT_CEPERK12_20261009_0000_85905",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35876",
+  "provider": "FRONTIER UTILITIES",
+  "product": "Frontier Power Saver 12",
+  "url": "https://eflviewer.frontierutilities.com/eflviewer.aspx?lang=EN&prodcode=FPOWSVR12&tdspcode=TNMP&ppid=196509&logid=85910&filename=TNMP_FPOWSVR12_20261009_0000_85910",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "38386",
+  "provider": "TRUE POWER",
+  "product": "True Value 24",
+  "url": "https://gb008a8dbfa8724-worx4uv1.adb.us-ashburn-1.oraclecloudapps.com/ords/worx4u/admin/efls/5DFCB849B324E97AE063E9F2000AC9DF/view",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "27845",
+  "provider": "CleanSky Energy",
+  "product": "Embrace Green 12 - New Customer Special",
+  "url": "https://enroll.cleanskyenergy.com//Home/EFL?productCode=RN00011935&promo=&term=12",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35811",
+  "provider": "RHYTHM",
+  "product": "Digital Choice 24",
+  "url": "https://api.gotrhythm.com/api/pricing/offers/latest-offers-efl/18856/?locale=en",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "34922",
+  "provider": "Energy Texas",
+  "product": "No Bull 36",
+  "url": "https://api.energytexas.com/api/pricing/offers/latest-offers-efl/12889/?locale=en",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "38437",
+  "provider": "Abundance Energy",
+  "product": "Straight Forward 12",
+  "url": "https://gb008a8dbfa8724-worx4uv1.adb.us-ashburn-1.oraclecloudapps.com/ords/worx4u/document/efl/5DA8A91D0F714AEBE063E9F2000A6DE6",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "29499",
+  "provider": "BKV Energy",
+  "product": "Daisy 24",
+  "url": "https://enroll.bkvenergy.com/Home/EFL?productCode=RN00001201&promo=&term=24",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "34725",
+  "provider": "CHARIOT ENERGY",
+  "product": "Bright Nights 12",
+  "url": "https://signup.chariotenergy.com//Home/EFl?productId=48228",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "34545",
+  "provider": "AE TEXAS",
+  "product": "Smart Secure 36",
+  "url": "https://enroll.aetexasco.com/EmailHTML/efl.aspx?RateID=3744&BrandID=1&PromoCodeID=114",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35740",
+  "provider": "Octopus Energy LLC",
+  "product": "Octo Simple 24",
+  "url": "https://octopusenergy.com/efl?productId=OCTO-SIMPLE-24&serviceProvider=ONCOR&loadZone=LZ_NORTH",
+  "sample": "provider",
+  "format": "html"
+ },
+ {
+  "idKey": "28046",
+  "provider": "GEXA ENERGY",
+  "product": "Gexa Eco Choice 3",
+  "url": "https://eflviewer.gexaenergy.com/eflviewer.aspx?lang=EN&prodcode=GXAECOCHI3&tdspcode=ONCOR_ELEC&ppid=196522&logid=85916&filename=ONCOR_ELEC_GXAECOCHI3_20261009_0000_85916",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35977",
+  "provider": "Texans Choice Power LLC",
+  "product": "Texas Instant 12",
+  "url": "https://signup.texanschoicepower.com/getdocument/?getproductpdf=1&productid=153827&type=EFL_TIEREDPRICING&title=153827_EFL_TIEREDPRICING&language=english",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "36186",
+  "provider": "Atlantex Power",
+  "product": "Luminous 36",
+  "url": "https://enroll.atlantexpower.com/EmailHTML/efl.aspx?RateID=3347&BrandID=3&PromoCodeID=115",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "618",
+  "provider": "NEC Co-op Energy",
+  "product": "Residential Electricity... Plain and simple.",
+  "url": "https://neccoopenergy.com/wp-content/uploads/2026/09/EFL-10-1-26-RESIDENTIAL-AEP-TCC.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "18372",
+  "provider": "CIRRO ENERGY",
+  "product": "Smart Simple 24",
+  "url": "https://www.cirroenergy.com/defl/M1F00204181644A.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "18418",
+  "provider": "CONSTELLATION NEWENERGY INC",
+  "product": "12 Month A/C Protect Plus for 2 Units",
+  "url": "https://www.constellation.com/bin/residential/GetContractVersionPDF?versionNum=5042462",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "16543",
+  "provider": "CHAMPION ENERGY SERVICES LLC",
+  "product": "Champ Saver-24",
+  "url": "https://docs.championenergyservices.com/ExternalDocs?planname=PN2440&state=TX&language=EN",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "20186",
+  "provider": "PAYLESS POWER",
+  "product": "PTC 6 Month - Prepaid",
+  "url": "https://api.paylesspower.com/common/api/document/onc/ERPP87/efl/en/487447",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "33342",
+  "provider": "AP GAS & ELECTRIC (TX) LLC",
+  "product": "TrueClassic 12",
+  "url": "https://artemis-api.apge.com/api/v1/document?documentId=73&offerCode=SRBTX_AEC_NA_NA_RES_FPR_SD0_T12_NEW",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "31968",
+  "provider": "AMIGO ENERGY",
+  "product": "Basics PTC - 24",
+  "url": "https://webs.amigoenergy.com/Generate_Docs/Generate_EflLinks.aspx?RID=FmU1axfKZP4=&RCID=rv5fvOkFHh4=&L=6f+Ch9flI7k=",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "31978",
+  "provider": "TARA ENERGY",
+  "product": "Basics PTC - 24",
+  "url": "https://webs.taraenergy.com/Generate_Docs/Generate_EflLinks.aspx?RID=9go1u2iCjqo=&RCID=cacW2cvK/I0=&L=6f+Ch9flI7k=",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "31617",
+  "provider": "GREEN MOUNTAIN ENERGY COMPANY",
+  "product": "Pollution Free e-Plus 9 Choice",
+  "url": "https://signup.greenmountain.com/defl/G1F00201600313B.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "24640",
+  "provider": "JUST ENERGY",
+  "product": "Sustainable Days Bundle - 3",
+  "url": "https://webs.justenergydeals.com/Generate_Docs/Generate_EflLinks.aspx?RID=4X8tgdFCERI=&RCID=gNASPlhlupI=&L=6f+Ch9flI7k=",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "24812",
+  "provider": "RELIANT",
+  "product": "Reliant Power On 12 Plan",
+  "url": "https://www.reliant.com/defl/R1F00200156406B.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "26878",
+  "provider": "DIRECT ENERGY",
+  "product": "Autopay Texas 36",
+  "url": "https://m-api.directenergy.com/de-mobile-oam-services/defl/D1F00200112850B.pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "28304",
+  "provider": "GOOD CHARLIE & CO LLC",
+  "product": "GoodEnergy 36",
+  "url": "https://api.goodcharlie.com/products/2048/EFL/Centerpoint/latest/en",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "29285",
+  "provider": "Ranchero Power",
+  "product": "No Contract Advantage",
+  "url": "https://bit.ly/4cHZ66D",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "36267",
+  "provider": "SOUTHERN FEDERAL POWER LLC",
+  "product": "SoFed Easy Out Fixed - 8",
+  "url": "https://bit.ly/47ROAql",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "31151",
+  "provider": "REVOLUTION ENERGY LLC",
+  "product": "Liberty Bell Green Flex",
+  "url": "https://e966f83b313c3b45ede3-64a631b37f7b69cdf842d11bca52af9c.ssl.cf5.rackcdn.com//202610/EFL-20261019-103600-CENTERPT-Liberty Bell Green Flex (English).pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "31496",
+  "provider": "TRIEAGLE ENERGY LP",
+  "product": "Simple Savings 12",
+  "url": "https://shopping.trieagleenergy.com/PDFGenerator?formType=EnergyFactsLabel&comProdId=TNXTESMSAVC12AA&tdsp=AEPTNC&lang=en&custClass=Residential",
+  "sample": "provider",
+  "format": "html"
+ },
+ {
+  "idKey": "33789",
+  "provider": "INFUSE ENERGY",
+  "product": "Essential Infusion Green Flex",
+  "url": "https://88fd201f32c53c2bd0fb-11ba98ed637230a2314ec7c228a44bda.ssl.cf5.rackcdn.com/202610/EFL-20261019-104900-ONCORD-Essential Infusion Green Flex (English).pdf",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "34487",
+  "provider": "Think Energy",
+  "product": "Think Clean 24",
+  "url": "https://api.thinkenergy.onproton.io/enrollment/get_latest_document?lang=en&product_code=tx.thinkclean.ap.fixed&tdsp_id=4&doc_type=EFL&term=24&promo_code=PTC1",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35926",
+  "provider": "VARSITY ENERGY LLC",
+  "product": "TOUCHDOWN 12",
+  "url": "https://signup.varsityenergy.com/Home/EFl?productId=33107&ver=english",
+  "sample": "provider",
+  "format": "pdf"
+ },
+ {
+  "idKey": "36599",
+  "provider": "TXU ENERGY",
+  "product": "Free Nights & Cool Summer 12",
+  "url": "https://residential.txu.com/Handlers/PDFGenerator.ashx?comProdId=CPXFNCOOLS12AC&lang=en&formType=EnergyFactsLabel&custClass=3&tdsp=CENTERP",
+  "sample": "tou",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35157",
+  "provider": "Octopus Energy",
+  "product": "OctopusFlex",
+  "url": "https://octopusenergy.com/efl?productId=OCTOPUS-FLEX&serviceProvider=ONCOR&loadZone=LZ_NORTH",
+  "sample": "tou",
+  "format": "html"
+ },
+ {
+  "idKey": "36336",
+  "provider": "PRONTO POWER",
+  "product": "Pronto Saver One",
+  "url": "https://pronto-gridlink.smartgridcis.net/Documents/Download.aspx?ProductDocumentID=927",
+  "sample": "prepaid",
+  "format": "pdf"
+ },
+ {
+  "idKey": "33674",
+  "provider": "PRONTO POWER",
+  "product": "Power To Choose",
+  "url": "https://pronto-gridlink.smartgridcis.net/Documents/Download.aspx?ProductDocumentID=1188",
+  "sample": "prepaid",
+  "format": "pdf"
+ },
+ {
+  "idKey": "24645",
+  "provider": "JUST ENERGY",
+  "product": "Smart Choice - 12",
+  "url": "https://webs.justenergydeals.com/Generate_Docs/Generate_EflLinks.aspx?RID=xzHEKmkXD0A=&RCID=gNASPlhlupI=&L=6f+Ch9flI7k=",
+  "sample": "minusage",
+  "format": "pdf"
+ },
+ {
+  "idKey": "12090",
+  "provider": "NEC Co-op Energy",
+  "product": "Residential Electricity... Plain and simple.",
+  "url": "https://neccoopenergy.com/wp-content/uploads/2026/09/EFL-10-1-26-RESIDENTIAL-NEC-Wires-Area.pdf",
+  "sample": "variable",
+  "format": "pdf"
+ },
+ {
+  "idKey": "33786",
+  "provider": "INFUSE ENERGY",
+  "product": "Essential Infusion Green Flex",
+  "url": "https://88fd201f32c53c2bd0fb-11ba98ed637230a2314ec7c228a44bda.ssl.cf5.rackcdn.com/202610/EFL-20261019-104900-AEPS-Essential Infusion Green Flex (English).pdf",
+  "sample": "variable",
+  "format": "pdf"
+ },
+ {
+  "idKey": "33364",
+  "provider": "AP GAS & ELECTRIC (TX) LLC",
+  "product": "SimpleSaver 12",
+  "url": "https://artemis-api.apge.com/api/v1/document?documentId=73&offerCode=SRBBUC_ONC_NA_NA_RES_F125M_SD0_T12_NEW",
+  "sample": "cliff",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35981",
+  "provider": "Texans Choice Power LLC",
+  "product": "Texas Instant 12",
+  "url": "https://signup.texanschoicepower.com/getdocument/?getproductpdf=1&productid=153831&type=EFL_TIEREDPRICING&title=153831_EFL_TIEREDPRICING&language=english",
+  "sample": "cliff",
+  "format": "pdf"
+ },
+ {
+  "idKey": "27802",
+  "provider": "TARA ENERGY",
+  "product": "Basics PTC - 36",
+  "url": "https://webs.taraenergy.com/Generate_Docs/Generate_EflLinks.aspx?RID=px8nNPR0SyU=&RCID=cacW2cvK/I0=&L=6f+Ch9flI7k=",
+  "sample": "lubbock",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35767",
+  "provider": "Companion Energy",
+  "product": "Companion + Perks 12",
+  "url": "https://eflviewer.companionenergy.com/eflviewer.aspx?lang=EN&prodcode=CEPERK12&tdspcode=LPL&ppid=196534&logid=85904&filename=LPL_CEPERK12_20261009_0000_85904",
+  "sample": "lubbock",
+  "format": "pdf"
+ },
+ {
+  "idKey": "37966",
+  "provider": "FRONTIER UTILITIES",
+  "product": "Frontier Power Saver 3",
+  "url": "https://eflviewer.frontierutilities.com/eflviewer.aspx?lang=EN&prodcode=FPOWSVR3&tdspcode=TNMP&ppid=196039&logid=85639&filename=TNMP_FPOWSVR3_20261001_0000_85639",
+  "sample": "tnmp",
+  "format": "pdf"
+ },
+ {
+  "idKey": "34906",
+  "provider": "Energy Texas",
+  "product": "No Bull 12",
+  "url": "https://api.energytexas.com/api/pricing/offers/latest-offers-efl/12745/?locale=en",
+  "sample": "tnmp",
+  "format": "pdf"
+ },
+ {
+  "idKey": "29491",
+  "provider": "BKV Energy",
+  "product": "Daisy Green 12",
+  "url": "https://enroll.bkvenergy.com/Home/EFL?productCode=RN00001198&promo=&term=12",
+  "sample": "aepn",
+  "format": "pdf"
+ },
+ {
+  "idKey": "35771",
+  "provider": "Companion Energy",
+  "product": "Companion + Perks 12",
+  "url": "https://eflviewer.companionenergy.com/eflviewer.aspx?lang=EN&prodcode=CEPERK12&tdspcode=AEP_NORTH&ppid=196529&logid=85907&filename=AEP_NORTH_CEPERK12_20261009_0000_85907",
+  "sample": "aepn",
+  "format": "pdf"
+ },
+ {
+  "idKey": "33348",
+  "provider": "AP GAS & ELECTRIC (TX) LLC",
+  "product": "TrueClassic 24",
+  "url": "https://artemis-api.apge.com/api/v1/document?documentId=73&offerCode=SRBTX_CTP_NA_NA_RES_FPR_SD0_T24_NEW",
+  "sample": "cnp",
+  "format": "pdf"
+ },
+ {
+  "idKey": "29306",
+  "provider": "SOUTHERN FEDERAL POWER LLC",
+  "product": "SoFed Easy Out Fixed - 15",
+  "url": "https://bit.ly/4hHdgGF",
+  "sample": "cnp",
+  "format": "pdf"
+ }
+]

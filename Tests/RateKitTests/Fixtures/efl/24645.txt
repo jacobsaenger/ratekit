@@ -1,0 +1,51 @@
+                                       Electricity Facts Label (EFL)
+                            Just Energy - Fixed Rate Product: Smart Choice - 12
+                                    For Service Area: AEP Texas North
+                                              Date: 10/20/2026
+               Average monthly use:                       500 kWh          1000 kWh                                       2000 kWh
+               Average price per kilowatt-hour                                24.1¢                    11.3¢                  17.4¢
+
+               The average price per kWh is based on the usage levels shown above and includes the following components of the price:
+               • Energy Charge: 17.9¢/kWh
+               • Smart Choice Credit: $125.00 if your usage on this plan is equal or greater than 1000 kWh per bill cycle.
+               • Pass-Through TDSP Distribution Charge: 5.5751¢/kWh
+               • Pass-Through TDSP Customer Charge: $3.24 per month
+
+               Your average price for electric service will vary according to your monthly usage.
+Electricity   The average price per kWh does not include JustGreen charge.
+Price         The Smart Choice Credit is available exclusively under this contract and applies when billed usage under the
+(Residential) terms of this contract meets or exceeds 1,000 kWh during a billing cycle. The credit may not apply during billing
+               cycles with partial usage billed under this contract due to the contract’s start or end dates, or partial bill cycles as
+               determined by the TDSP.
+               The price does not include federal, state, or local sales taxes or fees, reimbursement for the state miscellaneous gross
+               receipts tax, other government charges, or all other non-recurring fees. Some locations may be subject to a TDSP
+               Underground Facilities and Cost Recovery Charge authorized by their city that is not included in the total average price
+               shown. For more details, see the TDSP service tariff for a listing of cities and authorized charges.
+               A Minimum Usage Fee of $4.99 will apply to billing cycles less than 400 kWh.
+Other Keys
+and Terms      See Terms of Service statement for a full listing of fees, deposit policy, and other terms.
+and
+Questions
+               Type of Product                                          Fixed Rate Product
+               Contract Term                                            12 Months
+               Do I have a termination fee or any fees associated       Yes; The Exit fee is $175 per ESIID.
+               with terminating service?
+               Can my price change during the contract period?          Yes, but only in the limited circumstances described below.
+               If my price can change, how will it change and by        Your price can change to reflect changes in TDU/TDSP
+               how much?                                                charges,changes to the ERCOT or Texas Regional Entity
+                                                                        administrative fees charged to loads or changes resulting from
+Disclosure                                                              federal, state, or local laws that impose new or modified fees or
+Chart                                                                   costs on Just Energy that are beyond our control.
+               What other fees may I be charged?                        Please see the “Special Service Fees” and “JustGreen” sections of
+                                                                        the Terms of Service for more details.
+               Is this a pre-pay or pay in advance product?             No
+               Does the REP purchase excess distributed renewable Yes
+               generation?
+               Renewable Content                                  22%
+               The statewide average for renewable content is           37.2%
+
+            Just Energy Texas L.P. d/b/a Just Energy                                CustomerSupport@justenergy.com
+            P.O. Box 460008, Houston, Texas 77056                      Monday – Friday: 8AM – 7PM CST, Saturday: 9AM – 6PM CST
+          www.JustEnergy.com | PUCT License # 10052                           Phone: 1-866-587-8674 | Fax: 1-888-548-7690
+                                                                                             TX_JE_SMARTCHOICE_UNB_EFL_ENG_V1.1_JUL_01_26
+

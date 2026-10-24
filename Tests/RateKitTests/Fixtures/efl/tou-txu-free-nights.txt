@@ -1,0 +1,89 @@
+                                            Electricity Facts Label (EFL)
+                                          TXU Energy Retail Company LLC
+                                     TXU Energy Free Nights & Cool Summer 12SM
+                                        Service Area - Oncor Electric Delivery
+                                                  October 22, 2026
+
+               Average Monthly Use                     500 kWh                      1000 kWh                    2000 kWh
+               Average Price per kWh                    20.9¢                         19.5¢                       18.8¢
+
+              The Average Price per kWh is based on TXU Energy customers on similar Time-of-Use products over the past three
+              years within this TDU service area. It reflects that an average of 41.13% of electricity usage occurred during the Free
+              Nights Savings period, as defined below, and an average of 12.73% of electricity usage occurred during the Cool
+              Summer Bonus period, as defined below. Your actual average price per kWh will vary based on your usage and the
+              pricing components listed below.
+
+
+               Base Charge:                         Per Month ($)     $9.95
+               Energy Charge:                        Per kWh (¢)
+                                          All kWh           20.2000¢
+                                             Per Month ($)      **
+              TDU Delivery Charges:
+                                             Per kWh (¢)        **
+              **For updated TDU delivery charges go to txu.com/tducharges.
+
+              TDU Delivery Charges Per Month and TDU Delivery Charges Per kWh will be passed through to customer as
+              billed from the Transmission and Distribution Utility (TDU).
+
+Electricity   Free Nights Savings: From 9:00 p.m. through 4:59 a.m. each day, you will receive a 100% credit on all Energy
+Price         Charges.
+              Cool Summer Bonus: You will receive an additional 25% credit on all Energy Charges during the Free Nights Savings
+              period during July, August, and September. This additional credit will never exceed your total daytime energy
+              charges (5:00 AM–8:59 PM) and has no cash value.
+              Your average price per kWh each month is determined using the formula below based on your Monthly Billed kWh
+              Usage.
+              Price per kWh = [Base Charge + TDU Delivery Charges per Month + (Monthly billed kWh Usage multiplied by the
+              (Energy Charge + TDU Delivery Charges per kWh)) - (Energy Charge multiplied by Monthly billed kWh Usage
+              multiplied by the Free Nights percentage) - (Energy Charge multiplied by Monthly billed kWh Usage multiplied by the
+              Cool Summer Bonus eligible percentage multiplied by 25%)] / Monthly billed kWh Usage
+              The total kilowatt-hour usage shown on your monthly invoice (Billed Usage) is provided by the TDU. Usage is
+              determined from interval data from your advanced meter (Interval Data) and is also provided by the TDU. If the
+              Billed Usage and Interval Data do not match: 1) any missing intervals in the Interval Data will first be determined
+              using market information for your usage profile, then these intervals will be proportionately adjusted so the sum of all
+              intervals equal the Billed Usage provided by the TDU; or 2) if there is no missing interval information, each interval
+              of the Interval Data will be proportionately adjusted so the sum of all intervals equal the Billed Usage provided by the
+              TDU.
+              Average prices per kWh listed above do not include facility relocation fees or other charges ordered by a municipality.
+              For information, please go to txu.com/municipalfees.
+
+              Customers with electric vehicles, batteries, and/or solar panels are ineligible.
+Other Key
+              Each month you will also be billed all taxes, including sales tax, and reimbursement for the state miscellaneous gross
+Terms and
+              receipts tax as applicable.
+Questions
+              See Terms of Service Agreement for a full listing of fees, deposit policy, and other terms.
+              Type of Product                                          Fixed Rate
+              Contract Term                                            12 Months
+              Do I have a termination fee or any fees associated        Yes                      Early Cancellation Fee: $150.00
+              with terminating service?
+
+
+ RESUNV.121813E
+             Can my price change during the contract period?         Yes
+                                                                    Your price will not change during the term of this plan except
+                                                                    to reflect actual changes in TDU charges; changes to the
+             If my price can change, how will it change, and by how Electric Reliability Council of Texas or Texas Regional Entity
+             much?                                                  administrative fees; or changes resulting from federal, state or
+                                                                    local laws that impose new or modified fees or costs that are
+                                                                    beyond our control.
+Disclosure                                                          See Pricing and Fees Section of your Terms of Service
+             What other fees may I be charged?
+Chart                                                               Agreement for non-recurring fees.
+             Is this a pre-pay or pay in advance product?           No
+                                                                Yes, for homeowners who are enrolled on an eligible TXU
+                                                                Energy solar buyback plan, and who have executed an
+             Does the REP purchase excess distributed renewable
+                                                                Interconnection Agreement with their TDU. We reserve the right
+             generation?
+                                                                to reduce your buyback rate or revoke your eligibility for solar
+                                                                buyback credits following 45 days advance written notice.
+             Renewable Content                                  This product is 3% renewable.
+             The statewide average for renewable content is        37%
+             TXU Energy Retail Company LLC            REP No. 10004                                     Version:
+             P.O. Box 650764 Dallas, TX 75265-0764                                                      ONXFNCOOLS12AE
+             1-800-242-9113 (24 X 7)                                                                    October 22, 2026
+             email: txuenergy@txu.com                 website: txu.com                                  10012026_UNB
+Additional
+Detail
+

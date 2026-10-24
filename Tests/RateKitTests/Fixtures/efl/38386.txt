@@ -1,0 +1,66 @@
+Electricity Facts Label (EFL)
+True Power
+AEP Texas North
+TP AEP Texas North 24mo 2026-10-16
+October 16, 2026
+
+                                                                                    Average Price per kWh
+                           Average Monthly Use          500 kWh         1000 kWh              2000 kWh
+                           Average Price per kWh        12.2 ¢          11.9 ¢                11.7 ¢
+
+                           The above price disclosure is based on the following price components
+
+                           Energy Charge                     5.98¢            per kWh
+   Electricity Price       Base Charge                       $0               per billing cycle
+                           AEP-N Delivery Charges            $3.24            per month
+                           AEP-N Delivery Charges            5.5751¢          per kWh
+
+                           The average prices above are an example based on average monthly kWh usages as indicated. The
+                           actual price will vary based on actual usage and is calculated based on the price defined above. The
+                           average prices reflect all recurring charges, excluding state and local sales taxes. Some areas subject to
+                           TDU Underground Facilities and Cost Recovery Charge authorized by the city that is not included in the
+                           price indicated. See TDU tariff for a list of cities and authorized charges.
+
+
+ Other Key Terms &         See Terms of Service statement for a full listing of fees, deposit policy, and other terms.
+     Questions
+
+                           Type of Product                              FIXED
+
+                           Contract Term                                24 months
+
+                           Do I have a termination fee or any fees      $300.00
+                           associated with terminating service?
+
+                           Can my Price change during the               YES
+                           contract period?
+                                                                        The price applied in the first billing cycle may be different
+                                                                        from the price in this EFL if there are changes in TDSP
+                                                                        charges; changes to the Electric Reliability Council of Texas
+                                                                        or Texas Regional Entity administrative fees charged to
+                           If the price can change, how will it
+  Disclosure Chart         change and by how much?                      loads; or changes resulting from federal, state or local laws
+                                                                        or regulatory actions that impose new or modified fees or
+                                                                        costs that are outside our control. Please review the
+                                                                        historical price of this product available at
+                                                                        www.truepower.com or call 1-888-642-8783.
+                           What other fees may I be charged?            See Terms of Service
+
+                           Is this a pre-pay or pay in advance          NO
+                           product?
+
+                           Does True Power purchase excess              NO
+                           distributed renewable generation
+
+                           Renewable Content                            This product is 15% Renewable
+                           Statewide average for Renewable              37.2%
+                           Content
+
+2900 Wilcrest Dr., Houston, Texas 77042
+Web: www.truepower.com Email: customerservice@truepower.com
+Toll-Free: 888-642-8783
+Monday to Friday 9 am – 6 pm CST
+Saturday Closed
+
+PUCT # 10287                                           Version: AEP-N_TP-AEPTEXAS-24MO-2026-10-16
+

@@ -1,0 +1,87 @@
+                                             Electricity Facts Label (EFL)
+                                                  Spark Energy, LLC
+                                   Central Power & Light [CP&L / AEP] Service Area
+                                                       Choose 15
+                                               ISSUE DATE: 10/20/2026
+
+                  Average Monthly Use (Residential)                      500 kWh                1000 kWh               2000 kWh
+
+                  Average Price per Kilowatt-hour (¢ per kWh)              12.5¢                  12.2¢                     12.0¢
+
+
+                  Average Monthly Use (Small Commercial)                 1500 kWh               2500 kWh               3500 kWh
+                  Non-Demand Meter Average Price per
+                  Kilowatt-hour (¢ per kWh)                                11.0¢                  10.8¢                     10.8¢
+                  Demand Meter Average Price per Kilowatt-
+                  hour (¢ per kWh)                                         13.6¢                  12.7¢                     12.6¢
+
+              The average price examples shown above include your Transmission and Distribution Utility (TDU) delivery costs,
+              which will be passed through to you in accordance with the rates charged by your TDU. The average price per kWh
+              examples are based on the specified monthly kWh consumption amounts using a 30% load factor, if applicable. The price
+              disclosure is an estimate. This estimated average price per kWh disclosure is an example and is calculated using:
+
+                  Energy Charge                                 6.19¢                         ¢ per kWh
+                  Base Charge                                   $0.00                         $ per bill month
+                  Minimum Usage Fee                             $0.00                         $ per bill month if usage < 1000 kWh
+Electricity       TDU Delivery Charge                           5.68980¢                      ¢ per kWh
+Price             TDU Delivery Charge                           $3.24                         $ per bill month
+
+              There is no incentive for this product.
+
+              If Small Commercial
+
+                  TDU Delivery Charge Demand Meter                       0.07430¢                                ¢ per kWh
+                  TDU Delivery Charge Demand Meter                       $22.00                                  $ per bill month
+                  TDU Delivery Charge Non-Demand                         4.42180¢                                ¢ per kWh
+                  TDU Delivery Charge Non-Demand                         $5.66                                   $ per bill month
+                  TDU Demand Charges                                     $12.53                                  $ per kW/kVa
+
+              This average price disclosure does not include applicable federal, state and local taxes or any fees (including gross receipt
+              tax reimbursement), other non-recurring amounts charged by Spark Energy, governmental entities, or changes resulting
+              from federal, state or local laws or regulatory actions that impose new or modified fees or costs that are outside our
+              control. TDU Charges are estimated. Your actual price for electricity may vary according to your exact monthly usage
+              and your TDU pass-through charges.
+
+              Some locations may be subject to a TDU Underground Facilities and Cost Recovery Charge authorized by your city that
+              is not included in this average price disclosure. See your TDU’s tariff for a list of cities and authorized charges.
+
+Other Key
+Terms and                       See Terms of Service statement for full listing of fees, deposit policy, and other terms.
+Questions
+              Type of Product                                                  Fixed
+              Contract Term                                                    15 Months
+              Do I have a termination fee or any fees associated with          $100.00. Fee does not apply if Customer moves to
+Disclosure    terminating service?                                             another location and provides a forwarding address and, if
+Chart                                                                          required, reasonable evidence that the customer no longer
+                                                                               occupies the location specified in the contract.
+              Can my price change during contract period?                      YES, but only for the very limited reasons described
+                                                                               below.
+             If my price can change, how will it change, and by how   The Price is subject to change during the Initial Term of
+             much?                                                    this Agreement only if there are changes in TDSP
+                                                                      charges; changes to the Electric Reliability Council of
+                                                                      Texas (“ERCOT”), or Texas Regional Entity (“TRE”)
+                                                                      administrative fees charged to loads or changes resulting
+                                                                      from federal, state or local laws or regulatory actions that
+                                                                      impose new or modified fees or costs that are beyond
+                                                                      Spark Energy’s control.
+             What other fees may I be charged?                        Fees not included in price above: Insufficient funds: $30;
+                                                                      DNP Notice Fee: $9.99; Disconnection Fee: $50.
+                                                                      Information on other non-recurring fees is available in the
+                                                                      Terms of Service in the section labeled ‘Other Charges
+                                                                      and Fees’.
+              Is this a pre-pay or pay in advance product             NO
+Disclosure   Does the REP purchase excess distributed renewable       NO
+Chart        generation?
+Continued    Renewable Content                                        This product is 37.2% renewable.
+             The statewide average for renewable content is           37.2%
+
+             Internet Address                 www.SparkEnergy.com
+             Email Address                    CustomerCare@SparkEnergy.com
+             Mailing Address                  12140 Wickchester Ln, Suite 100, Houston, TX 77079
+             Telephone Number                 1-877-547-7275
+             Fax Number                       1-877-374-8007
+             Hours of Operation               Monday – Friday:       8:00 am – 7:00 pm CST
+                                              Saturday:              9:00 am – 12:00 pm CST
+             PUCT Certificate Number          10046
+             Version Number                   REFE_Choose 15_Central Power & Light [CP&L / AEP]_06182026
+
