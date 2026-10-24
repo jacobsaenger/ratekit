@@ -132,9 +132,9 @@ func build(_ args: [String]) {
 /// was read successfully. A stale copy is safe to use because the plan still has to
 /// reproduce today's published prices to be verified.
 ///
-/// `seeds` holds copies, committed to the repo, of labels whose sites refuse cloud
-/// servers (Tara and Amigo, 2026-10-23): read from the Mac, used when the job has
-/// never downloaded the label itself.
+/// `seeds` holds copies, committed to the repo, of labels whose sites refuse cloud servers
+/// (Tara, Amigo, Ranchero and others; the list is in scripts/refresh-seed-labels.py): read
+/// from the Mac, used when the job has never downloaded the label itself.
 func labelText(for offer: PlanOffer, in dir: URL, seeds: URL? = nil, downloads: inout Int, fallbacks: inout Int) -> (String?, String?) {
     let lastGood = dir.appendingPathComponent(lastGoodKey(offer) + ".txt")
     let (text, problem) = freshLabelText(for: offer, in: dir, downloads: &downloads)
