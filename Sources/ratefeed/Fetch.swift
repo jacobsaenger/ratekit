@@ -53,29 +53,29 @@ func pdfText(_ file: URL) -> String? {
 /// what status. A link that looks broken is tried once more a few seconds later, so a
 /// passing outage doesn't flag it. Links that time out or block automated checks are left
 /// unjudged.
+///
+/// Each check runs the curl tool: FoundationNetworking's URLSession crashes on Linux with
+/// checks in parallel (libcurl error 43 in EasyHandle, 2026-10-24).
 func checkLinks(_ urls: Set<URL>, timeout: TimeInterval = 20) -> [URL: LinkCheck] {
-    let config = URLSessionConfiguration.ephemeral
-    config.timeoutIntervalForRequest = timeout
-    // No timeoutIntervalForResource: on Linux, FoundationNetworking crashes (libcurl error 43
-    // in EasyHandle) once it runs out. Each check is bounded by the wait below instead.
-    let session = URLSession(configuration: config)
-    // Linux marks concurrentPerform's closure @Sendable, so the function it calls must be too.
     @Sendable func check(_ url: URL) -> LinkCheck? {
-        var request = URLRequest(url: url, timeoutInterval: timeout)
-        request.setValue(browserUserAgent, forHTTPHeaderField: "User-Agent")
-        let done = DispatchSemaphore(value: 0)
-        nonisolated(unsafe) var result: LinkCheck?
-        let task = session.dataTask(with: request) { _, response, _ in
-            let http = response as? HTTPURLResponse
-            result = LinkCheck.classify(original: url, final: http?.url, statusCode: http?.statusCode)
-            done.signal()
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        process.arguments = ["curl", "-s", "-o", "/dev/null", "-L", "-b", "", "--max-redirs", "10",
+                             "--connect-timeout", "\(Int(timeout))", "--max-time", "\(Int(timeout * 2))",
+                             "-A", browserUserAgent, "-w", "%{http_code} %{url_effective}", url.absoluteString]
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        process.standardError = FileHandle.nullDevice
+        do { try process.run() } catch { return nil }
+        let output = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+        process.waitUntilExit()
+        // "000" when nothing answered. `-b ""` keeps cookies across redirects, as a browser
+        // does: some sign-up pages set a session cookie and send visitors without it home.
+        let parts = output.split(separator: " ", maxSplits: 1)
+        guard parts.count == 2, let code = Int(parts[0]), code > 0 else {
+            return LinkCheck.classify(original: url, final: nil, statusCode: nil)
         }
-        task.resume()
-        if done.wait(timeout: .now() + timeout * 2) == .timedOut {
-            task.cancel()
-            return nil
-        }
-        return result
+        return LinkCheck.classify(original: url, final: URL(string: String(parts[1])), statusCode: code)
     }
     let queue = DispatchQueue(label: "links")
     nonisolated(unsafe) var results: [URL: LinkCheck] = [:]
