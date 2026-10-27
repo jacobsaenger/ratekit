@@ -110,6 +110,13 @@ func build(_ args: [String]) {
         guard unknown.isEmpty else { fail("\(path) names providers not in the feed: \(unknown.joined(separator: ", "))") }
         feed.referralFees = fees
     }
+    // What people complain to the PUCT about, per provider (`--complaints`).
+    if args.contains("--complaints") {
+        let providers = Set(plans.map(\.offer.provider))
+        let complaints = fetchComplaints(providers: providers)
+        feed.complaints = complaints.isEmpty ? nil : complaints
+        FileHandle.standardError.write(Data("complaint histories: \(complaints.count) of \(providers.count) providers\n".utf8))
+    }
     do { try feed.encoded().write(to: URL(fileURLWithPath: outPath)) } catch { fail("cannot write \(outPath): \(error)") }
     // Today's check in a few numbers, for the website to show without loading the feed.
     if let statsPath = option("--stats") {

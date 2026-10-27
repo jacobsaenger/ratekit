@@ -21,6 +21,19 @@ public struct Feed: Codable, Equatable, Sendable {
     /// The providers that pay us a referral fee, by provider display name, with what they
     /// pay ("$40 per sign-up"). Empty when none do; the app shows this on every plan page.
     public var referralFees: [String: String]?
+    /// Each provider's last six months of PUCT complaints by type, keyed by the export's
+    /// provider name (`PlanOffer.provider`). Absent in older feeds or when the pages failed.
+    public var complaints: [String: ComplaintHistory]?
+
+    /// The provider's own month-to-month or variable plans in an area: roughly what a fixed
+    /// plan rolls onto if the household doesn't switch when it ends. Many providers list none.
+    public func monthToMonthPlans(provider: String, tdu: TDU) -> [FeedPlan] {
+        plans.filter {
+            $0.offer.provider == provider && $0.offer.tdu == tdu && (!$0.offer.fixedRate || $0.offer.termMonths <= 1)
+                && !$0.offer.prepaid && !$0.offer.timeOfUse
+        }
+            .sorted { $0.offer.price1000 < $1.offer.price1000 }
+    }
 
     /// What the provider pays us when someone signs up through the app, or nil if nothing.
     public func referralFee(for provider: String) -> String? {

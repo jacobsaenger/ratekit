@@ -156,6 +156,29 @@ final class ContractTests: XCTestCase {
         XCTAssertEqual(timing.waitSaving, 720 - 60, accuracy: 0.01)
     }
 
+    /// A 3-month top plan is priced for its three months, then on the plan the ranking
+    /// switches to, so switch timing agrees with the yearly saving.
+    func testSwitchTimingFollowsAShortTopPlanOntoItsNextPlan() throws {
+        let teaser = PlanTerms(energyRate: 3, deliveryPerKWh: 6.8673, deliveryPerMonth: 4.06)
+        let feed = Feed(generatedAt: Date(), plans: [
+            FeedPlan(offer: PlanOffer(id: "t", tdu: .oncor, provider: "T", product: "Teaser 3", price500: 0, price1000: 0,
+                                      price2000: 0, termMonths: 3), status: .verified, terms: teaser),
+            FeedPlan(offer: PlanOffer(id: "b", tdu: .oncor, provider: "P", product: "Cheap 12", price500: 0, price1000: 0,
+                                      price2000: 0), status: .verified, terms: best6),
+        ])
+        var filters = PlanFilters()
+        filters.term = .any
+        let best = try XCTUnwrap(PlanRanking(feed: feed, tdu: .oncor, usage: flatYear, filters: filters, startMonth: 1).ranked.first)
+        XCTAssertEqual(best.id, "t")
+        let plan = CurrentPlan(providerName: "R", planName: "Old", endDate: date(2027, 4, 15), cancelFee: 150, energyRate: 14)
+        let timing = try XCTUnwrap(SwitchTiming(current: plan, currentTerms: current14, best: best,
+                                                usage: flatYear, now: date(2027, 1, 1), calendar: calendar))
+        // Today: 3 months at $110 a month less, then 9 at $80 less (the 12-month plan), minus the fee.
+        XCTAssertEqual(timing.switchNowSaving, 3 * 110 + 9 * 80 - 150, accuracy: 0.01)
+        // Waiting to Apr 1: Apr–Jun on the teaser, Jul–Dec on the 12-month plan.
+        XCTAssertEqual(timing.waitSaving, 3 * 110 + 6 * 80, accuracy: 0.01)
+    }
+
     /// Once it's the household's plan, the sign-up fee has been paid: it's left out of the
     /// plan's monthly terms and charged only on the first bill.
     func testOwnPlansSignUpFeeIsAlreadyPaid() throws {

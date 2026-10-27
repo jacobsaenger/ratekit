@@ -91,3 +91,38 @@ func checkLinks(_ urls: Set<URL>, timeout: TimeInterval = 20) -> [URL: LinkCheck
     }
     return results
 }
+
+/// Each provider's six months of PUCT complaints by type, from Power to Choose's complaint
+/// history pages, keyed by the export's provider name. The page needs the provider's
+/// company code, which only the plans API gives: one API call per area maps names to codes.
+/// Providers whose page can't be read are left out.
+func fetchComplaints(providers: Set<String>) -> [String: ComplaintHistory] {
+    func key(_ name: String) -> String { name.trimmingCharacters(in: .whitespaces).uppercased() }
+    var codes: [String: (company: String, plan: Int)] = [:]
+    for tdu in TDU.allCases where tdu != .oncorNTU {
+        guard let zip = ZIPTable.bundled.zips.filter({ $0.value == [tdu] }).keys.sorted().first,
+              let url = URL(string: "https://api.powertochoose.org/api/PowerToChoose/plans?zip_code=\(zip)"),
+              let data = download(url, timeout: 60),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let rows = json["data"] as? [[String: Any]] else { continue }
+        for row in rows {
+            guard let name = row["company_name"] as? String, let company = row["company_id"] as? String,
+                  let plan = row["plan_id"] as? Int, codes[key(name)] == nil else { continue }
+            codes[key(name)] = (company, plan)
+        }
+    }
+    var byCompany: [String: ComplaintHistory] = [:]
+    var out: [String: ComplaintHistory] = [:]
+    for provider in providers.sorted() {
+        guard let code = codes[key(provider)] else { continue }
+        if byCompany[code.company] == nil {
+            Thread.sleep(forTimeInterval: 0.5)
+            guard let url = URL(string: "https://www.powertochoose.org/en-us/Content/Scores/\(code.plan)?c=\(code.company)"),
+                  let data = download(url), let html = String(data: data, encoding: .utf8),
+                  let history = ComplaintHistory.parse(html: html) else { continue }
+            byCompany[code.company] = history
+        }
+        out[provider] = byCompany[code.company]
+    }
+    return out
+}

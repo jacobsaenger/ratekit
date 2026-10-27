@@ -10,7 +10,7 @@ let usage = """
 usage:
   ratefeed price <feed.json> <tdu> <home> [count]
       Prints the cheapest plans for a home estimate (UsageEstimate.Home raw value), all terms.
-  ratefeed build --cache <dir> --out <feed.json> [--report <report.txt>] [--csv <offers.csv>] [--min-verified <n>] [--history <history.json>] [--referral-fees <referral-fees.json>] [--check-links] [--seed-labels <dir>] [--stats <stats.json>]
+  ratefeed build --cache <dir> --out <feed.json> [--report <report.txt>] [--csv <offers.csv>] [--min-verified <n>] [--history <history.json>] [--referral-fees <referral-fees.json>] [--check-links] [--seed-labels <dir>] [--stats <stats.json>] [--complaints]
       Downloads the Power to Choose export (unless --csv is given) and every label not
       already in the cache, reads and checks each label, and writes the plan feed. With
       --min-verified, a run that verifies fewer plans fails without writing the feed.
@@ -18,6 +18,7 @@ usage:
       feed carries the history. --seed-labels names a folder of label texts to use
       when a label can't be downloaded and none was cached (sites that block servers).
       --stats writes the day's counts (plans, priceable, verified, time-of-use) as JSON.
+      --complaints adds each provider's six months of PUCT complaints by type.
   ratefeed check <offers.csv> <label-text-dir> [idKey ...]
       Reads each <idKey>.txt label in the directory and reports which plans verify.
 """

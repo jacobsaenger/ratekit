@@ -17,8 +17,8 @@ public struct PlanFilters: Equatable, Codable, Sendable {
         }
     }
 
-    /// Twelve months or longer by default: a shorter plan's yearly cost assumes its rate
-    /// lasts the year, but it rolls onto an unknown renewal rate when it ends.
+    /// Twelve months or longer by default. A shorter fixed plan's yearly cost covers its
+    /// term and then switching again to the cheapest 12-month plan (`PricedPlan.afterTerm`).
     public var term: Term = .atLeast12
     public var fixedRateOnly = false
     public var minimumRenewablePercent = 0
@@ -31,12 +31,19 @@ public struct PlanFilters: Equatable, Codable, Sendable {
     public var hideHighComplaintProviders = false
     /// Hide plans whose price depends on autopay or paperless billing.
     public var hidePaymentRequirements = false
+    /// Only plans priced one simple way: a fixed rate with one energy price and no bill
+    /// credits, minimum-usage fees, time-of-day pricing, one-time fees, prepaid billing or
+    /// autopay/paperless condition, so they compare apples to apples. A plan whose label
+    /// couldn't be checked can't be shown to be simple, so it's hidden too.
+    public var simplePlansOnly = false
+    /// Only these providers (`PlanOffer.provider`); empty shows every provider.
+    public var providers: Set<String> = []
 
     public init() {}
 
     private enum CodingKeys: String, CodingKey {
         case term, fixedRateOnly, minimumRenewablePercent, hidePrepaid, hideMinimumUsageFees
-        case solarBuybackOnly, hideHighComplaintProviders, hidePaymentRequirements
+        case solarBuybackOnly, hideHighComplaintProviders, hidePaymentRequirements, simplePlansOnly, providers
     }
 
     /// Filters saved by an earlier version lack the newer keys; they keep their defaults.
@@ -50,6 +57,8 @@ public struct PlanFilters: Equatable, Codable, Sendable {
         solarBuybackOnly = try c.decodeIfPresent(Bool.self, forKey: .solarBuybackOnly) ?? false
         hideHighComplaintProviders = try c.decodeIfPresent(Bool.self, forKey: .hideHighComplaintProviders) ?? false
         hidePaymentRequirements = try c.decodeIfPresent(Bool.self, forKey: .hidePaymentRequirements) ?? false
+        simplePlansOnly = try c.decodeIfPresent(Bool.self, forKey: .simplePlansOnly) ?? false
+        providers = try c.decodeIfPresent(Set<String>.self, forKey: .providers) ?? []
     }
 
     public func allows(_ plan: FeedPlan) -> Bool {
@@ -62,7 +71,16 @@ public struct PlanFilters: Equatable, Codable, Sendable {
         if solarBuybackOnly && plan.buysBackSolar != true { return false }
         if hideHighComplaintProviders, let score = o.complaintScore, score <= 2 { return false }
         if hidePaymentRequirements && plan.payment != nil { return false }
+        if simplePlansOnly && !Self.isSimple(plan) { return false }
+        if !providers.isEmpty && !providers.contains(o.provider) { return false }
         return true
+    }
+
+    static func isSimple(_ plan: FeedPlan) -> Bool {
+        let o = plan.offer
+        guard let t = plan.terms, plan.status == .verified, o.fixedRate, !o.prepaid, !o.timeOfUse, plan.payment == nil
+        else { return false }
+        return t.energyTiers.count == 1 && t.credits.isEmpty && t.minimumUsageFees.isEmpty && (t.oneTimeFee ?? 0) == 0
     }
 }
 
@@ -82,8 +100,24 @@ public struct PricedPlan: Identifiable, Equatable, Sendable {
     /// the year's effective energy rate.
     public var timeOfUse: TimeOfUseTerms? = nil
     public var windowShares: [Double] = []
+    /// Set for a fixed plan shorter than a year: the months after its term are priced as
+    /// switching again to `afterTerm.plan`, the cheapest plan of 12 months or longer for
+    /// this household.
+    public var afterTerm: AfterTerm? = nil
 
     public var id: String { plan.id }
+
+    public struct AfterTerm: Equatable, Sendable {
+        public var plan: FeedPlan
+        /// `plan`'s terms with current delivery and without its one-time fee, which is
+        /// `signUpFee`, paid once on switching.
+        public var terms: PlanTerms
+        public var signUpFee: Double
+        /// Months of the year after this plan's term.
+        public var months: Int
+        /// What those months cost on `plan`, its sign-up fee included, dollars.
+        public var cost: Double
+    }
 }
 
 /// The plans available in one service area, priced for a household's year of usage.
@@ -96,10 +130,33 @@ public struct PlanRanking: Equatable, Sendable {
     public var timeOfUse: [FeedPlan]
 
     /// `profile` prices time-of-use plans; `hasSolar` leaves out those whose label excludes
-    /// homes with solar.
+    /// homes with solar. `startMonth` (1 = January) is the first month of the year a short
+    /// plan is priced over: its term runs from there.
     public init(feed: Feed, tdu: TDU, usage: YearOfUsage, filters: PlanFilters = PlanFilters(), profile: UsageProfile? = nil,
-                hasSolar: Bool = false) {
+                hasSolar: Bool = false, startMonth: Int = Calendar.current.component(.month, from: Date())) {
+        // Providers picked in another area that have no plans here are ignored, so a move
+        // doesn't leave an empty list.
+        var filters = filters
+        if !filters.providers.isEmpty {
+            let here = Set(feed.plans.filter { $0.offer.tdu == tdu }.map(\.offer.provider))
+            filters.providers.formIntersection(here)
+        }
         let area = feed.plans.filter { $0.offer.tdu == tdu && filters.allows($0) }
+        // Where a short plan's household goes when its term ends: today's cheapest verified
+        // plan of 12 months or longer in the area, whatever the filters. Its one-time fee is
+        // kept apart: it's paid once, on switching.
+        let next = feed.plans
+            .filter { $0.offer.tdu == tdu && $0.offer.termMonths >= 12 && $0.status == .verified && $0.terms != nil }
+            .map { plan -> (plan: FeedPlan, terms: PlanTerms, fee: Double, bills: [Double]) in
+                var terms = PlanRanking.withCurrentDelivery(plan.terms!, charges: feed.delivery(for: tdu))
+                let fee = terms.oneTimeFee ?? 0
+                terms.oneTimeFee = nil
+                return (plan, terms, fee, usage.kWh.map { CostEngine.monthlyBill(terms, kWh: $0) })
+            }
+            .min { a, b in
+                let costA: Double = a.bills.reduce(0, +) + a.fee, costB: Double = b.bills.reduce(0, +) + b.fee
+                return (costA, a.plan.offer.provider) < (costB, b.plan.offer.provider)
+            }
         var ranked: [PricedPlan] = []
         var estimated: [FeedPlan] = []
         var timeOfUse: [FeedPlan] = []
@@ -108,13 +165,29 @@ public struct PlanRanking: Equatable, Sendable {
             case .verified:
                 guard let labelTerms = plan.terms else { estimated.append(plan); continue }
                 let terms = PlanRanking.withCurrentDelivery(labelTerms, charges: feed.delivery(for: tdu))
-                let bills = usage.kWh.map { CostEngine.monthlyBill(terms, kWh: $0) }
+                var bills = usage.kWh.map { CostEngine.monthlyBill(terms, kWh: $0) }
+                var afterTerm: PricedPlan.AfterTerm?
+                let term = plan.offer.termMonths
+                if plan.offer.fixedRate, (1..<12).contains(term), let next {
+                    // The year runs from `startMonth`; months past the term are on the next
+                    // plan. Each plan's one-time fee is paid once, in its first month.
+                    var own = terms
+                    own.oneTimeFee = nil
+                    bills = usage.kWh.map { CostEngine.monthlyBill(own, kWh: $0) }
+                    bills[startMonth - 1] += terms.oneTimeFee ?? 0
+                    let later = (term..<12).map { (startMonth - 1 + $0) % 12 }
+                    for m in later { bills[m] = next.bills[m] }
+                    bills[later[0]] += next.fee
+                    afterTerm = .init(plan: next.plan, terms: next.terms, signUpFee: next.fee, months: later.count,
+                                      cost: later.map { bills[$0] }.reduce(0, +))
+                }
                 let total = bills.reduce(0, +)
                 ranked.append(PricedPlan(
                     plan: plan, terms: terms, annualCost: total,
                     averagePrice: usage.total > 0 ? total / usage.total * 100 : 0,
                     monthlyBills: bills,
-                    warnings: TrapRules.warnings(for: plan.offer, terms: terms, monthlyKWh: usage.kWh, payment: plan.payment)
+                    warnings: TrapRules.warnings(for: plan.offer, terms: terms, monthlyKWh: usage.kWh, payment: plan.payment),
+                    afterTerm: afterTerm
                 ))
             case .estimated:
                 estimated.append(plan)

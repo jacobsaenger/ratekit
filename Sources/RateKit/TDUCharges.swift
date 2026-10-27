@@ -11,6 +11,14 @@ public struct TDUCharges: Codable, Equatable, Sendable {
     public var perKWh: Double
     public var perMonth: Double
 
+    public init(perKWh: Double, perMonth: Double) {
+        self.perKWh = perKWh
+        self.perMonth = perMonth
+    }
+
+    /// When the table's figures took effect (yyyy-MM-dd); 2026-10-20 is when they were first
+    /// read. Set it to the day new charges took effect whenever the table changes: the app tells
+    /// a household about a change only if this date is after it first saw the old charges.
     public static let effectiveDate = "2026-10-20"
 
     public static func current(_ tdu: TDU) -> TDUCharges? {

@@ -198,14 +198,25 @@ public struct SwitchTiming: Equatable, Sendable {
         var bestTerms = best.terms
         let signUpFee = bestTerms.oneTimeFee ?? 0
         bestTerms.oneTimeFee = nil
+        /// The best plan from `start` to `yearOut`: a short plan for its term, then the plan
+        /// `afterTerm` names, as the ranking prices it.
+        func onBest(from start: Date) -> Double {
+            guard start < yearOut else { return 0 }
+            var cost = signUpFee
+            var termEnd = yearOut
+            if let after = best.afterTerm,
+               let end = calendar.date(byAdding: .month, value: best.plan.offer.termMonths, to: start), end < yearOut {
+                termEnd = end
+                cost += after.signUpFee + CostEngine.cost(after.terms, monthlyKWh: kWh, from: end, to: yearOut, calendar: calendar)
+            }
+            return cost + CostEngine.cost(bestTerms, monthlyKWh: kWh, from: start, to: termEnd, calendar: calendar)
+        }
         let stay = CostEngine.cost(currentTerms, monthlyKWh: kWh, from: now, to: yearOut, calendar: calendar)
-        let switchNow = current.cancelFee + signUpFee
-            + CostEngine.cost(bestTerms, monthlyKWh: kWh, from: now, to: yearOut, calendar: calendar)
+        let switchNow = current.cancelFee + onBest(from: now)
         // A fee-free date more than a year out means waiting covers the whole 12 months.
         let waitEnd = min(feeFree, yearOut)
         let wait = CostEngine.cost(currentTerms, monthlyKWh: kWh, from: now, to: waitEnd, calendar: calendar)
-            + (waitEnd < yearOut ? signUpFee : 0)
-            + CostEngine.cost(bestTerms, monthlyKWh: kWh, from: waitEnd, to: yearOut, calendar: calendar)
+            + onBest(from: waitEnd)
         self.feeFreeDate = feeFree
         self.switchNowSaving = stay - switchNow
         self.waitSaving = stay - wait
