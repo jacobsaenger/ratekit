@@ -249,3 +249,73 @@ public struct RenewalCheck: Equatable, Sendable {
         self.renewalAnnualCost = CostEngine.annualCost(renewalTerms, monthlyKWh: usage.kWh)
     }
 }
+
+/// What a switch saves: the new plan against staying on the old one, for the household's
+/// usage, from the day the new plan started. Kept from the day of the switch, so it doesn't
+/// depend on either plan still being listed.
+public struct SwitchSavings: Codable, Equatable, Sendable {
+    public var oldPlanName: String
+    /// The old plan's terms, with the delivery charges of the day of the switch.
+    public var oldTerms: PlanTerms
+    public var oldEnds: Date
+    /// What the old plan would have renewed at, if the renewal rate was entered.
+    public var oldRenewalTerms: PlanTerms?
+    public var newPlanName: String
+    public var newTerms: PlanTerms
+    public var start: Date
+    public var newEnds: Date
+    /// Paid once to switch: the old plan's cancellation fee, if one was due, and the new
+    /// plan's sign-up fee.
+    public var switchingCost: Double
+
+    /// `oldCancelFee` counts if the new plan starts before the old plan's fee-free window.
+    /// A one-time fee in `newTerms` is moved into the switching cost.
+    public init(oldPlanName: String, oldTerms: PlanTerms, oldEnds: Date, oldCancelFee: Double, oldRenewalTerms: PlanTerms?,
+                newPlanName: String, newTerms: PlanTerms, start: Date, newEnds: Date, calendar: Calendar = .current) {
+        let feeFree = calendar.date(byAdding: .day, value: -ReminderPlanner.feeFreeDays, to: calendar.startOfDay(for: oldEnds)) ?? oldEnds
+        var newTerms = newTerms
+        let signUpFee = newTerms.oneTimeFee ?? 0
+        newTerms.oneTimeFee = nil
+        var oldTerms = oldTerms
+        oldTerms.oneTimeFee = nil
+        self.oldPlanName = oldPlanName
+        self.oldTerms = oldTerms
+        self.oldEnds = oldEnds
+        self.oldRenewalTerms = oldRenewalTerms
+        self.newPlanName = newPlanName
+        self.newTerms = newTerms
+        self.start = start
+        self.newEnds = newEnds
+        self.switchingCost = signUpFee + (calendar.startOfDay(for: start) < feeFree ? oldCancelFee : 0)
+    }
+
+    /// The comparison runs to the new contract's end, or, without the old plan's renewal
+    /// rate, only to when the old contract would have ended: what it would have charged
+    /// after that isn't known.
+    public var comparisonEnd: Date { oldRenewalTerms == nil ? min(newEnds, oldEnds) : newEnds }
+
+    /// A comparison shorter than this says little beyond the switching fees.
+    public static let minimumComparison: TimeInterval = 30 * 86400
+
+    /// False when there's too little to compare: without a renewal rate entered, the old
+    /// contract had already ended or had less than a month left.
+    public var isComparable: Bool { comparisonEnd.timeIntervalSince(start) >= Self.minimumComparison }
+
+    /// Dollars saved from the start up to `date` (at most `comparisonEnd`): the old plan, on
+    /// its renewal rate once its contract would have ended, against the new plan and the
+    /// switching cost. Negative when the switch cost more. Nil before the new plan starts.
+    public func saved(monthlyKWh: [Double], through date: Date, calendar: Calendar = .current) -> Double? {
+        guard monthlyKWh.count == 12, date >= start else { return nil }
+        let end = min(date, comparisonEnd)
+        let oldSwitch = max(start, min(oldEnds, end))
+        let old = CostEngine.cost(oldTerms, monthlyKWh: monthlyKWh, from: start, to: oldSwitch, calendar: calendar)
+            + CostEngine.cost(oldRenewalTerms ?? oldTerms, monthlyKWh: monthlyKWh, from: oldSwitch, to: end, calendar: calendar)
+        let new = CostEngine.cost(newTerms, monthlyKWh: monthlyKWh, from: start, to: end, calendar: calendar)
+        return old - new - switchingCost
+    }
+
+    /// Dollars saved over the whole comparison, at the household's usage.
+    public func savedOverall(monthlyKWh: [Double], calendar: Calendar = .current) -> Double? {
+        saved(monthlyKWh: monthlyKWh, through: comparisonEnd, calendar: calendar)
+    }
+}

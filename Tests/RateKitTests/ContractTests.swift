@@ -239,6 +239,68 @@ final class ContractTests: XCTestCase {
         plan.renewalIncludesDelivery = true
         XCTAssertEqual(plan.renewalTerms(tdu: .oncor, feed: nil)?.deliveryPerKWh, 0)
     }
+
+    // MARK: What a switch saved
+
+    let flat = Array(repeating: 1000.0, count: 12)
+    let old14 = PlanTerms(energyRate: 14, deliveryPerKWh: 0, deliveryPerMonth: 0)      // $140 a month
+    let new10 = PlanTerms(energyRate: 10, deliveryPerKWh: 0, deliveryPerMonth: 0)      // $100 a month
+
+    func testSavingsCountFromTheStartToTheNewContractsEnd() throws {
+        // Switched inside the old plan's fee-free window: no fee. It would have renewed at the same rate.
+        let s = SwitchSavings(oldPlanName: "Old 12", oldTerms: old14, oldEnds: date(2027, 1, 10), oldCancelFee: 150,
+                              oldRenewalTerms: old14, newPlanName: "New 12", newTerms: new10,
+                              start: date(2027, 1, 1), newEnds: date(2028, 1, 1), calendar: calendar)
+        XCTAssertEqual(s.switchingCost, 0)
+        XCTAssertNil(s.saved(monthlyKWh: flat, through: date(2026, 12, 20), calendar: calendar))
+        XCTAssertEqual(try XCTUnwrap(s.saved(monthlyKWh: flat, through: date(2027, 4, 1), calendar: calendar)), 120, accuracy: 0.01)
+        // Capped at the new contract's end.
+        XCTAssertEqual(try XCTUnwrap(s.saved(monthlyKWh: flat, through: date(2029, 6, 1), calendar: calendar)), 480, accuracy: 0.01)
+        XCTAssertEqual(try XCTUnwrap(s.savedOverall(monthlyKWh: flat, calendar: calendar)), 480, accuracy: 0.01)
+    }
+
+    func testWithoutARenewalRateTheComparisonStopsWhenTheOldContractWouldHaveEnded() throws {
+        let s = SwitchSavings(oldPlanName: "Old 12", oldTerms: old14, oldEnds: date(2027, 4, 1), oldCancelFee: 0,
+                              oldRenewalTerms: nil, newPlanName: "New 12", newTerms: new10,
+                              start: date(2027, 1, 1), newEnds: date(2028, 1, 1), calendar: calendar)
+        XCTAssertEqual(s.comparisonEnd, date(2027, 4, 1))
+        XCTAssertTrue(s.isComparable)
+        // Three months at $40, and nothing after.
+        XCTAssertEqual(try XCTUnwrap(s.saved(monthlyKWh: flat, through: date(2027, 9, 1), calendar: calendar)), 120, accuracy: 0.01)
+        XCTAssertEqual(try XCTUnwrap(s.savedOverall(monthlyKWh: flat, calendar: calendar)), 120, accuracy: 0.01)
+        // Already ended before the switch: nothing to compare.
+        let late = SwitchSavings(oldPlanName: "Old 12", oldTerms: old14, oldEnds: date(2026, 12, 1), oldCancelFee: 0,
+                                 oldRenewalTerms: nil, newPlanName: "New 12", newTerms: new10,
+                                 start: date(2027, 1, 1), newEnds: date(2028, 1, 1), calendar: calendar)
+        XCTAssertFalse(late.isComparable)
+        // Switched in the last 14 days with no renewal rate: under a month to compare.
+        let short = SwitchSavings(oldPlanName: "Old 12", oldTerms: old14, oldEnds: date(2027, 1, 14), oldCancelFee: 0,
+                                  oldRenewalTerms: nil, newPlanName: "New 12", newTerms: new10,
+                                  start: date(2027, 1, 1), newEnds: date(2028, 1, 1), calendar: calendar)
+        XCTAssertFalse(short.isComparable)
+    }
+
+    func testSavingsTakeOffTheFeesAndUseTheRenewalRateOnceTheOldContractWouldHaveEnded() throws {
+        var withFee = new10
+        withFee.oneTimeFee = 25
+        let s = SwitchSavings(oldPlanName: "Old 12", oldTerms: old14, oldEnds: date(2027, 7, 1), oldCancelFee: 150,
+                              oldRenewalTerms: PlanTerms(energyRate: 18, deliveryPerKWh: 0, deliveryPerMonth: 0),
+                              newPlanName: "New 12", newTerms: withFee,
+                              start: date(2027, 1, 1), newEnds: date(2028, 1, 1), calendar: calendar)
+        XCTAssertEqual(s.switchingCost, 175)
+        XCTAssertNil(s.newTerms.oneTimeFee)
+        // A month in, the fees outweigh the $40 saved.
+        XCTAssertEqual(try XCTUnwrap(s.saved(monthlyKWh: flat, through: date(2027, 2, 1), calendar: calendar)), -135, accuracy: 0.01)
+        // Six months at $40, six at $80 against the renewal rate, less the fees.
+        XCTAssertEqual(try XCTUnwrap(s.savedOverall(monthlyKWh: flat, calendar: calendar)), 545, accuracy: 0.01)
+    }
+
+    func testSavingsSurviveBeingStored() throws {
+        let s = SwitchSavings(oldPlanName: "Old 12", oldTerms: old14, oldEnds: date(2027, 7, 1), oldCancelFee: 0,
+                              oldRenewalTerms: nil, newPlanName: "New 12", newTerms: new10,
+                              start: date(2027, 1, 1), newEnds: date(2028, 1, 1), calendar: calendar)
+        XCTAssertEqual(try JSONDecoder().decode(SwitchSavings.self, from: JSONEncoder().encode(s)), s)
+    }
 }
 
 final class SwitchTimingLongContractTests: XCTestCase {
