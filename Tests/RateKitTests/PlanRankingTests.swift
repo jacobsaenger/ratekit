@@ -14,6 +14,19 @@ final class PlanRankingTests: XCTestCase {
 
     let flat = YearOfUsage(kWh: Array(repeating: 1000, count: 12), estimated: Array(repeating: false, count: 12))
 
+    func testNearTopIsThePlansWithinTheGapOfTheCheapest() {
+        let rates: [(String, Double)] = [("a", 10), ("b", 10.05), ("c", 10.15), ("d", 11)]
+        let feed = Feed(generatedAt: Date(), plans: rates.map {
+            plan($0.0, terms: PlanTerms(energyRate: $0.1, deliveryPerKWh: 6.8673, deliveryPerMonth: 4.06))
+        })
+        // 12,000 kWh a year: 0.05¢ apart is $6 a year, 0.15¢ is $18 and 1¢ is $120.
+        let ranking = PlanRanking(feed: feed, tdu: .oncor, usage: flat)
+        XCTAssertEqual(ranking.nearTop(within: 10).map(\.id), ["a", "b"])
+        XCTAssertEqual(ranking.nearTop(within: 20).map(\.id), ["a", "b", "c"])
+        XCTAssertEqual(ranking.nearTop(within: 0).map(\.id), ["a"])
+        XCTAssertTrue(PlanRanking(feed: Feed(generatedAt: Date(), plans: []), tdu: .oncor, usage: flat).nearTop(within: 20).isEmpty)
+    }
+
     func testRanksByYearlyCostForThisHousehold() throws {
         // At 1,000 kWh every month the credit plan wins; at 700 kWh it never gets the credit.
         let credit = PlanTerms(energyRate: 12, deliveryPerKWh: 6.8673, deliveryPerMonth: 4.06,

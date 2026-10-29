@@ -26,6 +26,16 @@ public enum UsageEstimate {
         0.1157597, 0.1224628, 0.1033802, 0.0807110, 0.0614135, 0.0679688,
     ]
 
+    /// The household's year with `months` (month index 0–11 → kWh, such as a bill's) in place
+    /// of what it had for them. The months it already knew are kept; every other month is
+    /// estimated again from all the known ones. Nil when there's nothing known at all.
+    public static func merging(_ months: [Int: Double], into usage: YearOfUsage?) -> YearOfUsage? {
+        var known: [Int: Double] = [:]
+        if let usage { for month in 0..<12 where !usage.estimated[month] { known[month] = usage.kWh[month] } }
+        for (month, kWh) in months where (0..<12).contains(month) && kWh > 0 { known[month] = kWh }
+        return fill(known)
+    }
+
     /// Fills the months missing from `known` (month index 0–11 → kWh) by scaling the
     /// Texas seasonal shape to the months the household does know.
     public static func fill(_ known: [Int: Double]) -> YearOfUsage? {

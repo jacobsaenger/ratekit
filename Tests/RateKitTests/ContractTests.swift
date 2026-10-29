@@ -89,6 +89,24 @@ final class ContractTests: XCTestCase {
         XCTAssertEqual(try comparison(now: date(2027, 3, 17)).cancelFeeNow, 0)
     }
 
+    func testPriceAlertNeedsTheTargetANewLowAndAWeekSinceTheLastOne() {
+        let now = date(2026, 10, 20)
+        func alert(_ best: Double?, last: Date? = nil, lastPrice: Double? = nil) -> Bool {
+            AlertPlanner.shouldAlertPrice(bestAveragePrice: best, target: 11, lastAlert: last, lastAlertPrice: lastPrice, now: now)
+        }
+        XCTAssertTrue(alert(10.9))
+        XCTAssertTrue(alert(11))
+        XCTAssertFalse(alert(11.1))
+        XCTAssertFalse(alert(nil))
+        // A week apart, but the same price again: not reported twice.
+        XCTAssertFalse(alert(10.9, last: date(2026, 10, 1), lastPrice: 10.9))
+        XCTAssertFalse(alert(10.88, last: date(2026, 10, 1), lastPrice: 10.9))
+        // A new low a week later is.
+        XCTAssertTrue(alert(10.5, last: date(2026, 10, 13, 11), lastPrice: 10.9))
+        // A new low within the week waits.
+        XCTAssertFalse(alert(10.5, last: date(2026, 10, 15), lastPrice: 10.9))
+    }
+
     func testAlertNeedsTheThresholdAndAWeekSinceTheLastOne() throws {
         let c = try comparison(now: date(2026, 10, 20))
         let now = date(2026, 10, 20)

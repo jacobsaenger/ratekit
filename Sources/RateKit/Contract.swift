@@ -147,6 +147,18 @@ public enum AlertPlanner {
         if let lastAlert, now.timeIntervalSince(lastAlert) < minimumGap { return false }
         return comparison.netFirstYearSaving >= threshold
     }
+
+    /// The household's price target: true when the best plan's average price for its usage
+    /// (¢ per kWh, delivery included) is at or under `target`, it's a new low since the last
+    /// price alert (`lastAlertPrice`, cleared once prices go back over the target), and no
+    /// price alert went out in the last 7 days. The same price is never reported twice.
+    public static func shouldAlertPrice(bestAveragePrice: Double?, target: Double, lastAlert: Date?,
+                                        lastAlertPrice: Double?, now: Date) -> Bool {
+        guard let bestAveragePrice, bestAveragePrice <= target else { return false }
+        if let lastAlertPrice, bestAveragePrice > lastAlertPrice - 0.05 { return false }
+        if let lastAlert, now.timeIntervalSince(lastAlert) < minimumGap { return false }
+        return true
+    }
 }
 
 /// The household's current plan against the best ranked plan.

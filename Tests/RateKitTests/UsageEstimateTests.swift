@@ -20,6 +20,26 @@ final class UsageEstimateTests: XCTestCase {
         XCTAssertEqual(year.total, 13065, accuracy: 6)
     }
 
+    func testMergingABillKeepsKnownMonthsAndReestimatesTheRest() throws {
+        // August from an earlier bill; a new bill gives September and a corrected August.
+        let before = try XCTUnwrap(UsageEstimate.fill([7: 1600]))
+        let after = try XCTUnwrap(UsageEstimate.merging([8: 1300, 7: 1650, 12: 999, 3: 0], into: before))
+        XCTAssertEqual(after.kWh[7], 1650)
+        XCTAssertEqual(after.kWh[8], 1300)
+        XCTAssertEqual(after.estimated.filter { !$0 }.count, 2)
+        // The rest scale to the two known months together.
+        let annual = (1650 + 1300) / (0.1224628 + 0.1033802)
+        XCTAssertEqual(after.kWh[0], (annual * 0.0841092).rounded())
+    }
+
+    func testMergingIntoAHomeEstimateUsesOnlyTheBill() throws {
+        let estimate = UsageEstimate.estimate(for: .house1500to1999)
+        let after = try XCTUnwrap(UsageEstimate.merging([8: 1300], into: estimate))
+        XCTAssertEqual(after.estimated.filter { !$0 }.count, 1)
+        XCTAssertEqual(after.total, 1300 / 0.1033802, accuracy: 6)
+        XCTAssertNil(UsageEstimate.merging([:], into: estimate))
+    }
+
     func testFillWithAFullYearChangesNothing() throws {
         let bills: [Double] = [1100, 950, 800, 780, 990, 1300, 1550, 1640, 1380, 1070, 820, 900]
         let year = try XCTUnwrap(UsageEstimate.fill(Dictionary(uniqueKeysWithValues: bills.enumerated().map { ($0, $1) })))

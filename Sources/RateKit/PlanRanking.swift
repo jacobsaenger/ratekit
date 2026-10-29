@@ -249,3 +249,12 @@ public struct PlanRanking: Equatable, Sendable {
         return t
     }
 }
+
+extension PlanRanking {
+    /// The ranked plans whose yearly cost is within `dollars` of the cheapest, cheapest first:
+    /// plans so close on price that their terms and providers should decide between them.
+    public func nearTop(within dollars: Double) -> [PricedPlan] {
+        guard let first = ranked.first else { return [] }
+        return Array(ranked.prefix { $0.annualCost - first.annualCost <= dollars })
+    }
+}
