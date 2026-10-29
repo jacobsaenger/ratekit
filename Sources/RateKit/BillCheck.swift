@@ -29,7 +29,12 @@ public struct BillCheck: Equatable, Sendable {
     /// True when the bill is more than 10% (and $5) above what the household's plan should charge.
     public var higherThanPlan: Bool {
         guard let expectedCost else { return false }
-        return paid - expectedCost > max(5, expectedCost * Self.mismatchShare)
+        return Self.higherThanPlan(paid: paid, expected: expectedCost)
+    }
+
+    /// A bill of `paid` dollars is more than 10% (and $5) above the `expected` charge.
+    public static func higherThanPlan(paid: Double, expected: Double) -> Bool {
+        paid - expected > max(5, expected * mismatchShare)
     }
 
     /// nil for a bill that can't be checked: no kWh or amount, or no ranked plan.
