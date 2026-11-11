@@ -1,0 +1,135 @@
+{
+  "checked": "2026-11-11",
+  "programs": [
+    {
+      "id": "chariot-greenvolt",
+      "provider": "Chariot Energy",
+      "program": "GreenVolt",
+      "credit": "fixed",
+      "cents": 7,
+      "source": "https://chariotenergy.com/solar-buyback/"
+    },
+    {
+      "id": "chariot-powerbank",
+      "provider": "Chariot Energy",
+      "program": "PowerBank",
+      "credit": "fixed",
+      "cents": 3,
+      "source": "https://chariotenergy.com/solar-buyback/"
+    },
+    {
+      "id": "chariot-shine",
+      "provider": "Chariot Energy",
+      "program": "Shine",
+      "credit": "wholesale",
+      "capCents": 25,
+      "source": "https://chariotenergy.com/solar-buyback/"
+    },
+    {
+      "id": "gme-essentials",
+      "provider": "Green Mountain Energy",
+      "program": "Renewable Rewards Essentials",
+      "credit": "energyRate",
+      "cappedAtUsage": true,
+      "source": "https://www.greenmountainenergy.com/en/home-energy-solutions/renewable-rewards-buyback-program"
+    },
+    {
+      "id": "gme-solar-credit",
+      "provider": "Green Mountain Energy",
+      "program": "Renewable Rewards Solar Credit",
+      "credit": "belowEnergyRate",
+      "source": "https://www.greenmountainenergy.com/en/home-energy-solutions/renewable-rewards-solar-credit",
+      "rateOnLabel": true
+    },
+    {
+      "id": "direct-solar-unlimited",
+      "provider": "Direct Energy",
+      "program": "Direct Solar Unlimited",
+      "credit": "energyRate",
+      "vivintOnly": true,
+      "source": "https://www.directenergy.com/en/residential/energy/electricity-plans/direct-solar-unlimited"
+    },
+    {
+      "id": "cirro-smart-solar-credit",
+      "provider": "Cirro Energy",
+      "program": "Smart Solar Credit",
+      "credit": "belowEnergyRate",
+      "source": "https://my.cirroenergy.com/en_US/lp/smart-solar-credit"
+    },
+    {
+      "id": "discount-wise-buy",
+      "provider": "Discount Power",
+      "program": "Wise Buy Solar Credit",
+      "credit": "belowEnergyRate",
+      "source": "https://www.discountpowertx.com/en/energy/plans/wise-buy"
+    },
+    {
+      "id": "rhythm-powershift",
+      "provider": "Rhythm",
+      "program": "PowerShift Solar Buyback 12",
+      "credit": "timeOfDay",
+      "periods": [
+        {
+          "name": "offPeak",
+          "cents": 4.161
+        },
+        {
+          "name": "onPeak",
+          "cents": 15.261
+        },
+        {
+          "name": "ultraOnPeak",
+          "cents": 26.245
+        }
+      ],
+      "asOf": "2026-04-28",
+      "energyChargeOnly": true,
+      "source": "https://www.gotrhythm.com/texas-solar-buyback",
+      "labelArea": "AEP North"
+    },
+    {
+      "id": "octopus",
+      "provider": "Octopus Energy",
+      "program": "Octo Green EV 12 and others",
+      "credit": "wholesale",
+      "source": "https://octopusenergy.com/solar"
+    },
+    {
+      "id": "txu-solar-buyback",
+      "provider": "TXU Energy",
+      "program": "Solar Buyback",
+      "credit": "notPublished",
+      "energyChargeOnly": true,
+      "source": "https://www.txu.com/electricity-plans/home-solar-buyback"
+    },
+    {
+      "id": "reliant-solar-payback",
+      "provider": "Reliant",
+      "program": "Solar Payback Plus",
+      "credit": "onLabel",
+      "source": "https://www.reliant.com/en/residential/electricity/renewable-energy/solar/solar-payback-plan"
+    },
+    {
+      "id": "gexa-solar-buyback",
+      "provider": "Gexa Energy",
+      "program": "Solar Buyback 12",
+      "credit": "notPublished",
+      "source": "https://www.gexaenergy.com/residential/electricity-plans/solar-buyback-plan"
+    },
+    {
+      "id": "frontier-net-metering",
+      "provider": "Frontier Utilities",
+      "program": "Solar buyback",
+      "credit": "onLabel",
+      "source": "https://eflviewer.frontierutilities.com/eflviewer.aspx?lang=EN&prodcode=TOS"
+    },
+    {
+      "id": "champion-solar-buyback",
+      "provider": "Champion Energy",
+      "program": "Solar Buyback add-on",
+      "credit": "notPublished",
+      "source": "https://championenergyservices.com/Solar",
+      "addOn": true
+    }
+  ]
+}

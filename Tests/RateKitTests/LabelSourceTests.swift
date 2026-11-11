@@ -60,6 +60,9 @@ final class SolarBuybackTests: XCTestCase {
         XCTAssertEqual(LabelSource.buysBackSolar("Does Revolution Energy purchase excess distributed\n No\n renewable generation?"), false)
         XCTAssertEqual(LabelSource.buysBackSolar("Does the REP purchase excess distributed Yes\n renewable generation?"), true)
         XCTAssertEqual(LabelSource.buysBackSolar("Does Champion purchase excess distributed Yes; if you own or lease on-site solar\nrenewable generation?"), true)
+        // The question split around its answer, and without "excess".
+        XCTAssertEqual(LabelSource.buysBackSolar("Is this a pre-pay or pay in advance product? No\nDoes Budget Power purchase excess\nNo\ndistributed renewable generation?\nRenewable Content 23.8%"), false)
+        XCTAssertEqual(LabelSource.buysBackSolar("Does Rhythm purchase distributed No, not under this plan. A customer interested in participating\nrenewable generation? buyback program needs to contact Rhythm Customer Care"), false)
     }
 
     func testConditionalOrMissingAnswersAreNotGuessed() {

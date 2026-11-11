@@ -67,7 +67,13 @@ public enum LabelSource {
     /// generation?" (solar buyback): true, false, or nil when it gives no plain yes or no.
     public static func buysBackSolar(_ text: String) -> Bool? {
         let lines = text.components(separatedBy: "\n")
-        guard let i = lines.firstIndex(where: { $0.lowercased().contains("purchase excess distributed") }) else { return nil }
+        // "Does … purchase (excess) distributed renewable generation?", whole or split over
+        // up to three lines ("purchase excess" / "No" / "distributed renewable generation?").
+        guard let i = lines.indices.first(where: { i in
+            let line = lines[i].lowercased()
+            guard let does = line.range(of: "does"), line[does.upperBound...].contains("purchase") else { return false }
+            return lines[i..<min(i + 3, lines.count)].contains { $0.lowercased().contains("distributed") }
+        }) else { return nil }
         let question = lines[i].lowercased()
         let start = question.range(of: "does")?.lowerBound ?? question.startIndex
         // The answer sits on the question's line, the next line, or between its two halves.
