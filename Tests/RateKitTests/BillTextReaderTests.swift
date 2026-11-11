@@ -35,6 +35,53 @@ final class BillTextReaderTests: XCTestCase {
         XCTAssertEqual(facts.provider, "Reliant")
     }
 
+    /// A layout like Chariot Energy's: the rate in dollars on the energy line, the plan's end
+    /// under "Expiration", and taxes listed apart from the current charges. Made-up numbers.
+    func testRateInDollarsExpirationAndTaxesListedApart() throws {
+        let text = """
+        Your Monthly Electricity Bill
+        Service Period: 09/20/26 - 10/19/26
+        $401.15 due Nov 10, 2026            Mix of Current Charges
+        Previous Balance $350.10
+        Payments ($350.10)
+        Current Charges $401.15
+        Amount Due $401.15     Chariot Energy $230.40
+        Tax and Regulatory $8.75
+        Utility Charges $162.00
+        Your Plan
+        Name Chariot Choice
+        Status Active
+        Expiration 03/14/27
+        Special Offer Date 11/20/26
+        Energy
+        Energy 2,400 kWh @ 0.09500 Per kWh $228.00
+        ERCOT Securitization 2,400 kWh @ 0.00100 Per $2.40
+        Consumption: 2,400 kWh
+        TDU Delivery Charges $162.00
+        Taxes
+        Gross Receipts Reimbursement $8.10
+        PUC Assessment $0.65
+        Total Current Charges $401.15
+        """
+        let facts = BillTextReader.read(text, providers: ["CHARIOT ENERGY", "TXU Energy"], calendar: calendar)
+        XCTAssertEqual(facts.kWh, 2400)
+        XCTAssertEqual(facts.totalDue, 401.15)
+        XCTAssertEqual(try XCTUnwrap(facts.charges), 401.15 - 8.75, accuracy: 0.001)
+        XCTAssertEqual(try XCTUnwrap(facts.energyRate), 9.5, accuracy: 0.0001)
+        XCTAssertEqual(facts.contractEnd, calendar.date(from: DateComponents(year: 2027, month: 3, day: 14)))
+        XCTAssertEqual(facts.provider, "CHARIOT ENERGY")
+
+        // A blank expiration doesn't take the offer date under it, and a percentage isn't taxes.
+        let blank = BillTextReader.read("""
+        Expiration
+        Special Offer Date 11/20/26
+        Current Charges $100.00
+        Tax and Regulatory 2.18%
+        """, calendar: calendar)
+        XCTAssertNil(blank.contractEnd)
+        XCTAssertNil(blank.charges)
+    }
+
     func testLabelsAndValuesOnSeparateLines() {
         let text = """
         Electricity Usage

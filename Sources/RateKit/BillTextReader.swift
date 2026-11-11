@@ -48,6 +48,12 @@ public enum BillTextReader {
                                 in: lines, avoiding: ["tax"] + pastBalance)
         facts.totalDue = dollars(after: ["total amount due", "total due", "total current charges", "current charges"],
                                  in: lines, avoiding: pastBalance)
+        // A bill that lists its taxes apart from the current charges: the charges less the taxes.
+        if facts.charges == nil,
+           let current = dollars(after: ["total current charges", "current charges"], in: lines, avoiding: pastBalance),
+           let taxes = taxDollars(lines), taxes > 0, taxes < current * 0.15 {
+            facts.charges = ((current - taxes) * 100).rounded() / 100
+        }
         // Pre-tax charges can't be more than the total with taxes.
         if let charges = facts.charges, let total = facts.totalDue, charges > total { facts.charges = nil }
         facts.contractEnd = contractEnd(lines, calendar: calendar)
@@ -145,6 +151,20 @@ public enum BillTextReader {
         return nil
     }
 
+    /// The taxes line's dollar amount, with its "$" (a chart's "2.18%" isn't dollars).
+    static func taxDollars(_ lines: [String]) -> Double? {
+        for label in ["tax and regulatory", "taxes and regulatory", "total taxes", "taxes and fees"] {
+            for line in lines {
+                let lower = line.lowercased()
+                guard let range = lower.range(of: label) else { continue }
+                if let m = lower[range.upperBound...].firstMatch(of: /\$\s*(\d{1,3}(?:,\d{3})*|\d+)\.(\d{2})(?!\d)/) {
+                    return number("\(m.1).\(m.2)")
+                }
+            }
+        }
+        return nil
+    }
+
     static func money(_ text: String) -> Double? {
         guard let m = text.firstMatch(of: /\$\s*(\d{1,3}(?:,\d{3})*|\d+)\.(\d{2})(?!\d)/) ?? text.firstMatch(of: /(?:^|[^\d.,])(\d{1,3}(?:,\d{3})*|\d+)\.(\d{2})(?!\d)/) else { return nil }
         return number("\(m.1).\(m.2)")
@@ -155,8 +175,10 @@ public enum BillTextReader {
     static func energyRate(_ lines: [String]) -> Double? {
         for line in lines {
             let lower = line.lowercased()
-            guard lower.contains("energy charge") || lower.contains("energy rate"),
-                  !["delivery", "tdu", "tdsp", "transmission"].contains(where: lower.contains) else { continue }
+            // "Energy charge 9.5¢", or a line that is the energy charge itself: "Energy 2,400 kWh @ 0.095 Per kWh".
+            let energyLine = lower.contains("energy charge") || lower.contains("energy rate")
+                || (lower.hasPrefix("energy ") && lower.contains("@") && lower.contains("kwh"))
+            guard energyLine, !["delivery", "tdu", "tdsp", "transmission"].contains(where: lower.contains) else { continue }
             var rate: Double?
             if let m = lower.firstMatch(of: /(\d{1,2}(?:\.\d+)?)\s*(?:¢|cents)/), let v = Double(m.1) { rate = v }
             else if let m = lower.firstMatch(of: /\$\s*0?\.(\d{2,6})/), let v = Double("0.\(m.1)") { rate = v * 100 }
@@ -171,15 +193,17 @@ public enum BillTextReader {
     static func contractEnd(_ lines: [String], calendar: Calendar) -> Date? {
         for (i, line) in lines.enumerated() {
             let lower = line.lowercased()
-            guard lower.contains("contract") || lower.contains("agreement"),
-                  let keyword = lower.range(of: "expir") ?? lower.range(of: "end") else { continue }
+            // "Contract expiration date", or a plan's "Expiration" line on its own.
+            let labelled = lower.contains("contract") || lower.contains("agreement") || lower.hasPrefix("expiration")
+            guard labelled, let keyword = lower.range(of: "expir") ?? lower.range(of: "end") else { continue }
             // Only the text after "end"/"expires": a start date earlier on the line isn't it.
             let after = String(line[line.index(line.startIndex, offsetBy: lower.distance(from: lower.startIndex, to: keyword.upperBound))...])
             if let d = date(after, calendar: calendar) { return d }
             // The value on the next line, unless that line is its own labelled date.
             if after.trimmingCharacters(in: .whitespaces).count < 8, i + 1 < lines.count {
                 let next = lines[i + 1].lowercased()
-                let labels = ["due", "service", "period", "read", "start", "bill", "statement", "issue", "print", "from", "through"]
+                let labels = ["due", "service", "period", "read", "start", "bill", "statement", "issue", "print", "from", "through",
+                              "offer", "special"]
                 if !labels.contains(where: next.contains), let d = date(lines[i + 1], calendar: calendar) { return d }
             }
         }
